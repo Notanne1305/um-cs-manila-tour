@@ -92,13 +92,13 @@ const Itinerary = () => {
                 <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full gradient-hero border-4 border-background shadow-soft z-10" />
                 
                 {/* Content Card */}
-                <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                <div className={`flex-1 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
                   <div className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-shadow duration-300">
-                    <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                    <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? '' : ''}`}>
                       <div className="w-10 h-10 gradient-hero rounded-lg flex items-center justify-center">
                         <item.icon className="w-5 h-5 text-primary-foreground" />
                       </div>
-                      <div className={index % 2 === 0 ? 'md:order-first' : ''}>
+                      <div className={index % 2 === 0 ? '' : ''}>
                         <span className="block font-display text-lg text-foreground">{item.day}</span>
                         <span className="text-sm text-muted-foreground">{item.date}</span>
                       </div>
@@ -108,10 +108,10 @@ const Itinerary = () => {
                       {item.title}
                     </h3>
                     
-                    <ul className={`space-y-2 ${index % 2 === 0 ? 'md:text-right' : ''}`}>
+                    <ul className="space-y-2">
                       {item.activities.map((activity, actIndex) => (
                         <li key={actIndex} className="text-muted-foreground text-sm flex items-center gap-2">
-                          <span className={`w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 ${index % 2 === 0 ? 'md:order-last' : ''}`} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                           {activity}
                         </li>
                       ))}
