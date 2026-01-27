@@ -1,4 +1,4 @@
-import { Plane, Building, Coffee, Home } from "lucide-react";
+import { Plane, Building, PartyPopper, Home } from "lucide-react";
 
 const schedule = [
   {
@@ -33,7 +33,7 @@ const schedule = [
     day: "Day 3",
     date: "March 5, 2026",
     title: "Fun and Learning Day",
-    icon: Coffee,
+    icon: PartyPopper,
     activities: [
       "Breakfast",
       "Company Visit 4",
@@ -46,12 +46,16 @@ const schedule = [
   {
     day: "Day 4",
     date: "March 6, 2026",
-    title: "Departure",
+    title: "Departure and Farewell",
     icon: Home,
     activities: [
-      "Final company visit",
-      "Certificate distribution",
-      "Return to Davao"
+      "Breakfast",
+      "Hotel Check-out",
+      "Company Visit 5",
+      "Lunch",
+      "Free & Easy/ Shoppin Time",
+      "Dinner",
+      "Travel back to Davao"
     ]
   }
 ];

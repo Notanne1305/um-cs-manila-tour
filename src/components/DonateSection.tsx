@@ -36,7 +36,7 @@ const DonateSection = () => {
                   <p className="text-muted-foreground text-sm font-medium mb-2">
                     GCash QR Code
                   </p>
-                  <img src="public\QR CODE.jpg" alt="QR code" width="200" height="200">
+                  <img src="public\QR CODE.jpg" alt="QR code" width="800" height="800">
                   </img>
                 </div>
               </div>

@@ -7,8 +7,12 @@ const StudentProfile = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-card rounded-3xl shadow-medium overflow-hidden">
             <div className="gradient-hero p-8 md:p-12 text-center">
-              <div className="w-28 h-28 md:w-36 md:h-36 bg-primary-foreground/20 rounded-full mx-auto flex items-center justify-center mb-6 border-4 border-primary-foreground/30">
-                <User className="w-14 h-14 md:w-18 md:h-18 text-primary-foreground" />
+              <div className="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto flex items-center justify-center mb-6 border-4 border-primary-foreground/30 overflow-hidden">
+                <img 
+                  src="/profile.jpg"
+                  alt="Jonathan Gonzales Sindo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h2 className="font-display text-2xl md:text-3xl text-primary-foreground mb-2">
                 Jonathan Gonzales Sindo
