@@ -34,7 +34,7 @@ const Hero = () => {
         <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-primary-foreground/90">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-accent" />
-            <span>March 4-7, 2026</span>
+            <span>March 3-6, 2026</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="w-5 h-5 text-accent" />
