@@ -1,9 +1,27 @@
 import { Heart, Smartphone, Shield } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const DonateSection = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    setShowPopup(true);
+    const timer = setTimeout(() => setShowPopup(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="donate" className="py-20 md:py-28 bg-secondary/50">
       <div className="container">
+        {/* Popup */}
+        {showPopup && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
+            <div className="bg-primary text-primary-foreground px-6 py-3 rounded-full shadow-lg font-medium">
+              Hitsuraan ang mag donate 😎
+            </div>
+          </div>
+        )}
+
         <div className="text-center mb-16">
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-3">
             Support My Journey
@@ -18,7 +36,7 @@ const DonateSection = () => {
         </div>
         
         <div className="max-w-lg mx-auto">
-          <div className="bg-card rounded-3xl shadow-medium overflow-hidden">
+          <div className="bg-card rounded-3xl shadow-medium overflow-hidden" onMouseEnter={() => setShowPopup(true)}>
             <div className="gradient-hero p-6 text-center">
               <div className="inline-flex items-center gap-2 bg-primary-foreground/20 px-4 py-2 rounded-full">
                 <Smartphone className="w-5 h-5 text-primary-foreground" />
