@@ -46,15 +46,17 @@ const DonateSection = () => {
             
             <div className="p-8 md:p-10">
               {/* QR Code Placeholder */}
-              <div className="aspect-square max-w-xs mx-auto bg-muted rounded-2xl flex items-center justify-center mb-8 border-2 border-dashed border-border">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Smartphone className="w-8 h-8 text-primary" />
+              <div className="max-w-xs mx-auto mb-8">
+                <div className="aspect-square bg-muted rounded-2xl flex items-center justify-center border-2 border-dashed border-border p-4">
+                  <div className="w-full">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                      <Smartphone className="w-6 h-6 text-primary" />
+                    </div>
+                    <p className="text-muted-foreground text-sm font-medium mb-4 text-center">
+                      GCash QR Code
+                    </p>
+                    <img src="/qr-code.jpg" alt="GCash QR code" className="w-full h-auto rounded-lg object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
                   </div>
-                  <p className="text-muted-foreground text-sm font-medium mb-2">
-                    GCash QR Code
-                  </p>
-                  <img src="/qr-code.jpg" alt="GCash QR code" className="w-full h-full rounded-lg" onError={(e) => e.currentTarget.style.display = 'none'} />
                 </div>
               </div>
               
