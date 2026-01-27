@@ -18,5 +18,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/um-cs-manila/", // Replace 'my-project' with your repository name
+  base: "/", // Replace 'my-project' with your repository name
 }));
