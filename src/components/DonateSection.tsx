@@ -9,10 +9,10 @@ const DonateSection = () => {
             Support My Journey
           </span>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-            Your Generosity Matters
+            Your Generosity Truly Matters
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Every contribution, no matter how small, brings me closer to this life-changing opportunity. 
+            Every contribution, no matter how big, brings me closer to this life-changing opportunity. 
             Thank you for believing in my dreams.
           </p>
         </div>
@@ -36,19 +36,18 @@ const DonateSection = () => {
                   <p className="text-muted-foreground text-sm font-medium mb-2">
                     GCash QR Code
                   </p>
-                  <p className="text-muted-foreground/70 text-xs">
-                    Place your QR code image here
-                  </p>
+                  <img src="public\QR CODE.jpg" alt="QR code" width="200" height="200">
+                  </img>
                 </div>
               </div>
               
               <div className="text-center mb-8">
                 <p className="text-sm text-muted-foreground mb-2">GCash Number</p>
                 <p className="font-display text-2xl text-foreground">
-                  09XX XXX XXXX
+                  0938 036 9397
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Account Name: [Your Name]
+                  Account Name: Jonathan Sindo
                 </p>
               </div>
               

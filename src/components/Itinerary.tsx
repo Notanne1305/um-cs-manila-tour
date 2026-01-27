@@ -3,40 +3,49 @@ import { Plane, Building, Coffee, Home } from "lucide-react";
 const schedule = [
   {
     day: "Day 1",
-    date: "March 4, 2026",
-    title: "Arrival & Orientation",
+    date: "March 3, 2026",
+    title: "Arrival and Company Visits",
     icon: Plane,
     activities: [
       "Travel from Davao to Manila",
-      "Hotel check-in and orientation",
-      "Team dinner and briefing"
+      "Company Visit 1",
+      "Lunch",
+      "Company Visit 2",
+      "Dinner",
+      "Hotel Check-in"
     ]
   },
   {
     day: "Day 2",
-    date: "March 5, 2026",
-    title: "Tech Company Visits",
+    date: "March 4, 2026",
+    title: "Tech Exploration & Cultural Immersion",
     icon: Building,
     activities: [
-      "Visit to leading tech companies",
-      "Industry presentations",
-      "Q&A with professionals"
+      "Breakfast",
+      "Heritage/ Cultural Tour",
+      "Lunch",
+      "Company Visit 3",
+      "Dinner",
+      "Overnight"
     ]
   },
   {
     day: "Day 3",
-    date: "March 6, 2026",
-    title: "Workshops & Networking",
+    date: "March 5, 2026",
+    title: "Fun and Learning Day",
     icon: Coffee,
     activities: [
-      "Hands-on workshops",
-      "Networking sessions",
-      "Career guidance talks"
+      "Breakfast",
+      "Company Visit 4",
+      "Lunch",
+      "Enchanted Kingdom Visit",
+      "Dinner",
+      "Overnight"
     ]
   },
   {
     day: "Day 4",
-    date: "March 7, 2026",
+    date: "March 6, 2026",
     title: "Departure",
     icon: Home,
     activities: [

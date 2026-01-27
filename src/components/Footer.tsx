@@ -15,7 +15,7 @@ const Footer = () => {
           <p className="text-primary-foreground/60 text-sm max-w-md mb-6">
             BS Computer Science - University of Mindanao
             <br />
-            Educational Tour • March 4-7, 2026
+            Educational Tour • March 3-6, 2026
           </p>
           
           <div className="flex items-center gap-2 text-primary-foreground/50 text-sm">

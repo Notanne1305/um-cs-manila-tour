@@ -25,18 +25,18 @@ const Contact = () => {
                 <Mail className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Email</h3>
-              <p className="text-muted-foreground text-sm">your.email@example.com</p>
+              <p className="text-muted-foreground text-sm text-wrap">jsindo13@gmail.com</p>
             </a>
             
             <a 
-              href="tel:+639XXXXXXXXX" 
+              href="tel:+639380369397" 
               className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-1"
             >
               <div className="w-12 h-12 gradient-hero rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Phone className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-              <p className="text-muted-foreground text-sm">+63 9XX XXX XXXX</p>
+              <p className="text-muted-foreground text-sm">+63 938 036 9397</p>
             </a>
             
             <a 
@@ -47,7 +47,8 @@ const Contact = () => {
                 <MessageCircle className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Messenger</h3>
-              <p className="text-muted-foreground text-sm">@yourfacebook</p>
+              <p className="text-muted-foreground text-sm"></p>
+              <a className="text-muted-foreground text-sm" href="https://www.facebook.com/JonathanGonzalesSindo/">Jonathan Gonzales Sindo</a>
             </a>
           </div>
         </div>

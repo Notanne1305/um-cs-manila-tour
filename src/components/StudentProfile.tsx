@@ -11,7 +11,7 @@ const StudentProfile = () => {
                 <User className="w-14 h-14 md:w-18 md:h-18 text-primary-foreground" />
               </div>
               <h2 className="font-display text-2xl md:text-3xl text-primary-foreground mb-2">
-                [Your Name Here]
+                Jonathan Gonzales Sindo
               </h2>
               <p className="text-primary-foreground/80">
                 3rd Year BS Computer Science Student
