@@ -53,7 +53,7 @@ const schedule = [
       "Hotel Check-out",
       "Company Visit 5",
       "Lunch",
-      "Free & Easy/ Shoppin Time",
+      "Free & Easy/ Shopping Time",
       "Dinner",
       "Travel back to Davao"
     ]
