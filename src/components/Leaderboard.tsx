@@ -9,8 +9,12 @@ interface Donor {
 
 const donors: Donor[] = [
   { rank: 1, name: "A**Y GA**E A.", amount: 2000.00, icon: <Trophy className="w-6 h-6" /> },
-  { rank: 2, name: "KE**N JO*N A.", amount: 6.00, icon: <Medal className="w-6 h-6" /> },
-  //{ rank: 3, name: "Pedro Reyes", amount: 25000, icon: <Award className="w-6 h-6" /> },
+  { rank: 2, name: "R** AL*****E J.", amount: 9.00, icon: <Medal className="w-6 h-6" /> },
+  { rank: 3, name: "KE**N JO*N A.", amount: 6.00, icon: <Award className="w-6 h-6" /> },
+  { rank: 4, name: "A**E G.", amount: 5.00, icon: null },
+  { rank: 5, name: "L**S M.", amount: 5.00, icon: null },
+  { rank: 6, name: "C*****A L.", amount: 5.00, icon: null },
+  { rank: 7, name: "R*****O F.", amount: 5.00, icon: null },
 ];
 
 const Leaderboard = () => {
