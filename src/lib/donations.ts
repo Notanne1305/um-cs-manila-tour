@@ -22,20 +22,35 @@ export const getDonations = (): Donor[] => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
-      const existingDonations = JSON.parse(stored);
-      // Merge any new default donors that don't exist yet (by id)
-      const existingIds = new Set(existingDonations.map((d: Donor) => d.id));
-      const newDonors = defaultDonors.filter(d => !existingIds.has(d.id));
+      const existingDonations: Donor[] = JSON.parse(stored);
+      const defaultIds = new Set(defaultDonors.map(d => d.id));
       
-      if (newDonors.length > 0) {
-        const merged = [...existingDonations, ...newDonors];
-        // Sort by amount descending
-        merged.sort((a, b) => b.amount - a.amount);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-        return merged;
-      }
+      // Create a map of existing donations by id for quick lookup
+      const existingMap = new Map<string, Donor>(
+        existingDonations.map((d: Donor) => [d.id, d])
+      );
       
-      return existingDonations;
+      // Always use defaultDonors as source of truth, but preserve amounts that were updated through UI
+      // Check if stored amount differs from default (indicating UI update)
+      const filteredDonors: Donor[] = defaultDonors.map(defaultDonor => {
+        const existing = existingMap.get(defaultDonor.id);
+        if (existing && existing.amount !== defaultDonor.amount) {
+          // Preserve UI-updated amount, but update other fields from defaults
+          return {
+            ...defaultDonor,
+            amount: existing.amount,
+          };
+        }
+        // Use default data (source of truth)
+        return defaultDonor;
+      });
+      
+      // Sort by amount descending
+      filteredDonors.sort((a, b) => b.amount - a.amount);
+      
+      // Save the filtered list back to localStorage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredDonors));
+      return filteredDonors;
     }
     // Initialize with default data
     localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDonors));
