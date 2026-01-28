@@ -1,4 +1,5 @@
-import { Trophy, Medal, Award } from "lucide-react";
+import { Trophy, Award } from "lucide-react";
+
 
 interface Donor {
   rank: number;
@@ -9,11 +10,11 @@ interface Donor {
 
 const donors: Donor[] = [
   { rank: 1, name: "A**Y GA**E A.", amount: 2000.00, icon: <Trophy className="w-6 h-6" /> },
-  { rank: 2, name: "R** AL*****E J.", amount: 9.00, icon: <Medal className="w-6 h-6" /> },
+  { rank: 2, name: "R** AL*****E J.", amount: 9.00, icon: <Award className="w-6 h-6" /> },
   { rank: 3, name: "KE**N JO*N A.", amount: 6.00, icon: <Award className="w-6 h-6" /> },
-  { rank: 4, name: "A**E G.", amount: 5.00, icon: null },
-  { rank: 5, name: "L**S M.", amount: 5.00, icon: null },
-  { rank: 6, name: "C*****A L.", amount: 5.00, icon: null },
+  { rank: 4, name: "A**E G.", amount: 5.75, icon: null },
+  { rank: 5, name: "L**S M.", amount: 5.50, icon: null },
+  { rank: 6, name: "C*****A L.", amount: 5.25, icon: null },
   { rank: 7, name: "R*****O F.", amount: 5.00, icon: null },
 ];
 
@@ -55,10 +56,14 @@ const Leaderboard = () => {
                       <td className="py-4 px-4 md:px-6">
                         <div className="flex items-center gap-3">
                           {donor.icon ? (
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-primary ${
-                              donor.rank === 1 ? "bg-yellow-100 dark:bg-yellow-900" :
-                              donor.rank === 2 ? "bg-gray-100 dark:bg-gray-700" :
-                              "bg-orange-100 dark:bg-orange-900"
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                              donor.rank === 1 
+                              ? "text-yellow-600 bg-yellow-100 dark:bg-yellow-900" :
+                              donor.rank === 2 
+                             ? "text-gray-500 bg-gray-100 dark:bg-gray-700":
+                               donor.rank === 3
+                             ? "text-orange-600 bg-orange-100 dark:bg-orange-900"
+                             : "text-primary bg-muted"
                             }`}>
                               {donor.icon}
                             </div>
