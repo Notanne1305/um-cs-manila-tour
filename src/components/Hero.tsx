@@ -46,7 +46,7 @@ const Hero = () => {
           {/* CTA — scrolls to leaderboard */}
           <div className="inline-block overflow-hidden rounded-full p-1">
             <a
-              href="#leaderboard"
+              href="#donate"
               className="inline-flex items-center gap-2 gradient-warm text-accent-foreground font-semibold px-6 sm:px-8 py-4 rounded-full shadow-medium hover:scale-105 transition-transform duration-300 transform-gpu will-change-transform whitespace-nowrap max-w-full"
               style={{ transformOrigin: 'center' }}
             >
