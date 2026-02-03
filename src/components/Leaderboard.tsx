@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { getRankedDonors } from "@/lib/donations";
 import ProgressBar from "./ProgressBar";
 import CountdownTimer from "./CountdownTimer";
-import WhatsIncluded from "./WhatsIncluded";
 
 const Leaderboard = () => {
   const [donors, setDonors] = useState(() => getRankedDonors());
@@ -41,9 +40,7 @@ const Leaderboard = () => {
     <section id="leaderboard" className="space-y-8 py-8">
       {/* Countdown Timer */}
       <CountdownTimer />
-      
-      {/* What's Included */}
-      <WhatsIncluded />
+    
       
       {/* Progress bar */}
       <ProgressBar useRankedTotals />
