@@ -36,8 +36,8 @@ const ProgressBar = ({ useRankedTotals = false }: ProgressBarProps) => {
     <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medium border border-border/50">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 gradient-hero rounded-lg flex items-center justify-center">
-            <Target className="w-5 h-5 text-primary-foreground" />
+          <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+            <Target className="w-5 h-5 text-white" />
           </div>
           <div>
             <h3 className="font-display text-lg font-semibold text-foreground">Fundraising Goal</h3>
