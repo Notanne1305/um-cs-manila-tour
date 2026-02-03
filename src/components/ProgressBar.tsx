@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getTotalDonations, getRankedDonors } from "@/lib/donations";
-import { Target } from "lucide-react";
+import { Target, Rocket } from "lucide-react";
 
 const GOAL_AMOUNT = 24800;
 
@@ -33,6 +33,38 @@ const ProgressBar = ({ useRankedTotals = false }: ProgressBarProps) => {
 
   return (
     <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-border/50">
+      <style jsx>{`
+        @keyframes rocket-pulse {
+          0%, 100% {
+            transform: translateY(-50%) scale(1);
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+          }
+          50% {
+            transform: translateY(-50%) scale(1.1);
+            filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.9));
+          }
+        }
+        
+        @keyframes rocket-trail {
+          0% {
+            opacity: 0.8;
+            transform: translateX(0) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(-20px) scale(0.5);
+          }
+        }
+        
+        .rocket-animated {
+          animation: rocket-pulse 1.5s ease-in-out infinite;
+        }
+        
+        .rocket-trail {
+          animation: rocket-trail 0.6s ease-out infinite;
+        }
+      `}</style>
+
       {/* Top Section: Total Raised and % */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 flex-wrap">
         <div className="flex items-center gap-3 w-full sm:w-auto flex-shrink-0">
@@ -59,12 +91,35 @@ const ProgressBar = ({ useRankedTotals = false }: ProgressBarProps) => {
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full bg-muted rounded-full h-5 sm:h-6 overflow-hidden">
+      {/* Progress Bar with Animated Rocket */}
+      <div className="relative w-full bg-muted rounded-full h-5 sm:h-6 overflow-visible mb-2">
         <div
-          className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000 ease-out"
+          className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
           style={{ width: `${percentage}%` }}
-        />
+        >
+          {/* Shimmer effect on the bar */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+        </div>
+        
+        {/* Rocket with trail effects */}
+        <div
+          className="absolute top-1/2 transition-all duration-1000 ease-out z-10"
+          style={{ left: `${Math.max(2, Math.min(98, percentage))}%` }}
+        >
+          {/* Trail particles */}
+          <div className="absolute top-1/2 -translate-y-1/2 right-2">
+            <div className="rocket-trail absolute w-2 h-2 bg-orange-400 rounded-full blur-sm"></div>
+            <div className="rocket-trail absolute w-1.5 h-1.5 bg-yellow-400 rounded-full blur-sm" style={{ animationDelay: '0.2s' }}></div>
+            <div className="rocket-trail absolute w-1 h-1 bg-red-400 rounded-full blur-sm" style={{ animationDelay: '0.4s' }}></div>
+          </div>
+          
+          {/* Main Rocket */}
+          <div className="rocket-animated relative">
+            <Rocket className="w-6 h-6 sm:w-7 sm:h-7 text-primary rotate-45" />
+            {/* Glow background */}
+            <div className="absolute inset-0 bg-primary/30 rounded-full blur-md -z-10"></div>
+          </div>
+        </div>
       </div>
 
       {/* Bottom Labels: 0, remaining, goal */}
@@ -73,7 +128,7 @@ const ProgressBar = ({ useRankedTotals = false }: ProgressBarProps) => {
         {totalDonations < GOAL_AMOUNT ? (
           <span className="font-semibold">₱{remaining.toLocaleString()} to go!</span>
         ) : (
-          <span className="font-semibold text-primary">Goal reached!</span>
+          <span className="font-semibold text-primary">🎉 Goal reached!</span>
         )}
         <span className="text-muted-foreground">₱{GOAL_AMOUNT.toLocaleString()}</span>
       </div>
