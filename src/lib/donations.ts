@@ -16,7 +16,7 @@ const defaultDonors: Donor[] = [
   { id: '5', name: "J***E S.", amount: 500.00, dateAdded: new Date().toISOString() },
   { id: '6', name: "H****L J** G.", amount: 1000.00, dateAdded: new Date().toISOString() },
   { id: '7', name: "HE***R J* G.", amount: 500.00, dateAdded: new Date().toISOString() },
-
+  { id: '8', name: "ED***N G.", amount: 500.00, dateAdded: new Date().toISOString() },
 ];
 
 export const getDonations = (): Donor[] => {
@@ -28,14 +28,19 @@ export const getDonations = (): Donor[] => {
       const existingDonations: Donor[] = JSON.parse(stored);
       const defaultIds = new Set(defaultDonors.map(d => d.id));
       
+      // Ensure all amounts are numbers (handle JSON parsing issues)
+      const normalizeDonor = (donor: Donor): Donor => ({
+        ...donor,
+        amount: typeof donor.amount === 'number' ? donor.amount : parseFloat(String(donor.amount)) || 0,
+      });
+      
       // Create a map of existing donations by id for quick lookup
       const existingMap = new Map<string, Donor>(
-        existingDonations.map((d: Donor) => [d.id, d])
+        existingDonations.map((d: Donor) => [d.id, normalizeDonor(d)])
       );
       
-      // Always use defaultDonors as source of truth, but preserve amounts that were updated through UI
-      // Check if stored amount differs from default (indicating UI update)
-      const filteredDonors: Donor[] = defaultDonors.map(defaultDonor => {
+      // Start with default donors, preserving any UI-updated amounts
+      const mergedDonors: Donor[] = defaultDonors.map(defaultDonor => {
         const existing = existingMap.get(defaultDonor.id);
         if (existing && existing.amount !== defaultDonor.amount) {
           // Preserve UI-updated amount, but update other fields from defaults
@@ -44,20 +49,28 @@ export const getDonations = (): Donor[] => {
             amount: existing.amount,
           };
         }
-        // Use default data (source of truth)
+        // Use default data
         return defaultDonor;
       });
       
-      // Sort by amount descending
-      filteredDonors.sort((a, b) => b.amount - a.amount);
+      // Add any new donations that aren't in the default list
+      existingDonations.forEach(existing => {
+        if (!defaultIds.has(existing.id)) {
+          mergedDonors.push(normalizeDonor(existing));
+        }
+      });
       
-      // Save the filtered list back to localStorage
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredDonors));
-      return filteredDonors;
+      // Sort by amount descending
+      mergedDonors.sort((a, b) => b.amount - a.amount);
+      
+      // Save the merged list back to localStorage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedDonors));
+      return mergedDonors;
     }
-    // Initialize with default data
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDonors));
-    return defaultDonors;
+    // Initialize with default data (sorted by amount descending)
+    const sortedDefaults = [...defaultDonors].sort((a, b) => b.amount - a.amount);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sortedDefaults));
+    return sortedDefaults;
   } catch (error) {
     console.error('Error reading donations from localStorage:', error);
     return defaultDonors;
@@ -121,17 +134,63 @@ export const updateDonation = (id: string, name: string, amount: number): void =
   }
 };
 
-export const getRankedDonors = (): Array<Donor & { rank: number; iconType: 'trophy' | 'medal' | 'award' | null }> => {
-  const donations = getDonations();
+export const getRankedDonors = (): Array<Donor & { rank: number; iconType: 'trophy' | 'medal' | 'award' | null; rankClass: string; rankSize: number }> => {
+  // Start with the canonical default donors (use amounts from defaultDonors[])
+  const baseDonors: Donor[] = defaultDonors.map(d => ({ ...d }));
   
-  // Sort by amount descending to ensure proper ranking
-  const sortedDonations = [...donations].sort((a, b) => b.amount - a.amount);
-  
-  return sortedDonations.map((donor, index) => ({
-    ...donor,
-    rank: index + 1,
-    iconType: index === 0 ? 'trophy' : index === 1 ? 'medal' : index === 2 ? 'award' : null,
-  }));
+  // Append any non-default donations found in localStorage (preserve their amounts)
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const existingDonations: Donor[] = JSON.parse(stored);
+        const defaultIds = new Set(defaultDonors.map(d => d.id));
+        existingDonations.forEach(d => {
+          if (!defaultIds.has(d.id)) {
+            baseDonors.push({
+              ...d,
+              amount: typeof d.amount === 'number' ? d.amount : parseFloat(String(d.amount)) || 0,
+            });
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error reading donations from localStorage in getRankedDonors:', error);
+    }
+  }
+
+  // Sort by amount descending; on ties use dateAdded (newer first)
+  const sortedDonations = [...baseDonors].sort((a, b) => {
+    if (b.amount !== a.amount) return b.amount - a.amount;
+    return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+  });
+
+  // Assign sequential ranks and icon types
+  return sortedDonations.map((donor, index) => {
+    const rank = index + 1;
+
+    // Presentation hints for the rank number (UI can use these classes/sizes)
+    let rankClass = 'text-base';
+    let rankSize = 16;
+    if (rank === 1) {
+      rankClass = 'text-3xl font-extrabold'; // much bigger
+      rankSize = 28;
+    } else if (rank === 2) {
+      rankClass = 'text-2xl font-semibold'; // slightly smaller
+      rankSize = 22;
+    } else if (rank === 3) {
+      rankClass = 'text-xl font-semibold'; // slightly smaller
+      rankSize = 20;
+    }
+
+    return {
+      ...donor,
+      rank,
+      iconType: rank === 1 ? 'trophy' : rank === 2 ? 'medal' : rank === 3 ? 'award' : null,
+      rankClass,
+      rankSize,
+    };
+  });
 };
 
 export const resetDonations = (): void => {
@@ -140,5 +199,10 @@ export const resetDonations = (): void => {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new Event('donationsUpdated'));
   }
+};
+
+export const getTotalDonations = (): number => {
+  const donations = getDonations();
+  return donations.reduce((total, donor) => total + donor.amount, 0);
 };
 
