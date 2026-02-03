@@ -4,6 +4,8 @@ import { Trophy, Award, Medal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getRankedDonors } from "@/lib/donations";
 import ProgressBar from "./ProgressBar";
+import CountdownTimer from "./CountdownTimer";
+import WhatsIncluded from "./WhatsIncluded";
 
 const Leaderboard = () => {
   const [donors, setDonors] = useState(() => getRankedDonors());
@@ -37,11 +39,14 @@ const Leaderboard = () => {
   };
   return (
     <section id="leaderboard" className="space-y-6">
-      {/* Progress bar on top of leaderboard */}
-      <div>
-        {/* Use leaderboard totals so progress matches the leaderboard amounts */}
-        <ProgressBar useRankedTotals />
-      </div>
+      {/* Countdown Timer */}
+      <CountdownTimer />
+      
+      {/* What's Included */}
+      <WhatsIncluded />
+      
+      {/* Progress bar */}
+      <ProgressBar useRankedTotals />
 
       {/* Leaderboard list */}
       <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medium border border-border/50">
