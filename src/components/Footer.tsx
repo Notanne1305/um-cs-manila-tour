@@ -1,30 +1,41 @@
-import { Heart, GraduationCap } from "lucide-react";
+import { Heart, GraduationCap, Sparkles } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground py-12">
-      <div className="container">
+    <footer className="bg-gradient-to-b from-[#0f1729] to-[#0a0f1a] py-16 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-accent/10 rounded-full blur-[80px]" />
+      
+      <div className="container relative">
         <div className="flex flex-col items-center text-center">
-          <div className="flex items-center gap-2 mb-4">
-            <GraduationCap className="w-6 h-6 text-primary-foreground/80" />
-            <span className="font-display text-lg text-primary-foreground/90">
-              Manila EdTour 2026
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg">
+              <GraduationCap className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-display text-2xl text-white">
+              Manila EdTour <span className="text-accent">2026</span>
             </span>
           </div>
           
-          <p className="text-primary-foreground/60 text-sm max-w-md mb-6">
+          <p className="text-white/60 text-sm max-w-md mb-8">
             BS Computer Science - University of Mindanao
             <br />
             Educational Tour • March 3-6, 2026
           </p>
           
-          <div className="flex items-center gap-2 text-primary-foreground/50 text-sm">
+          {/* Divider */}
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
+          
+          <div className="flex items-center gap-2 text-white/70 text-sm mb-4">
             <span>Made with</span>
-            <Heart className="w-4 h-4 text-accent fill-accent" />
+            <Heart className="w-4 h-4 text-accent fill-accent animate-pulse" />
             <span>and hope</span>
+            <Sparkles className="w-4 h-4 text-accent" />
           </div>
           
-          <p className="text-primary-foreground/40 text-xs mt-6">
+          <p className="text-white/40 text-xs">
             © 2025 All rights reserved. Thank you for your support.
           </p>
         </div>
