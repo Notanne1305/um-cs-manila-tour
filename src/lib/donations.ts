@@ -17,6 +17,7 @@ const defaultDonors: Donor[] = [
   { id: '6', name: "H***L J** G.", amount: 1000.00, dateAdded: new Date().toISOString() },
   { id: '7', name: "HE***R J* G.", amount: 500.00, dateAdded: new Date().toISOString() },
   { id: '8', name: "ED***N G.", amount: 500.00, dateAdded: new Date().toISOString() },
+  { id: '9', name: "KR*****E G.", amount: 1000.00, dateAdded: new Date(). toISOString()}
 ];
 
 export const getDonations = (): Donor[] => {
