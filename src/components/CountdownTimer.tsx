@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Calendar } from "lucide-react";
 
 const TARGET_DATE = new Date("2026-03-03T00:00:00");
 
@@ -35,38 +34,65 @@ const CountdownTimer = () => {
   }, []);
 
   const timeUnits = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: "DAYS", value: timeLeft.days },
+    { label: "HOURS", value: timeLeft.hours },
+    { label: "MINUTES", value: timeLeft.minutes },
+    { label: "SECONDS", value: timeLeft.seconds },
   ];
 
+  const DigitBox = ({ digit, isSeconds }: { digit: string; isSeconds?: boolean }) => (
+    <div className={`relative w-14 h-20 md:w-20 md:h-28 bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl shadow-lg flex items-center justify-center overflow-hidden group ${isSeconds ? 'animate-pulse-digit' : ''}`}>
+      {/* Shine effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent h-1/2" />
+      {/* Center line */}
+      <div className="absolute inset-x-0 top-1/2 h-px bg-black/30" />
+      {/* Digit */}
+      <span className={`text-4xl md:text-6xl font-black text-white tabular-nums relative z-10 ${isSeconds ? 'text-primary' : ''}`}>
+        {digit}
+      </span>
+      {/* Bottom reflection */}
+      <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent" />
+    </div>
+  );
+
   return (
-    <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medium border border-border/50">
-      <div className="flex items-center justify-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-          <Calendar className="w-5 h-5 text-white" />
+    <div className="py-16 md:py-24">
+      <div className="text-center mb-10 md:mb-14">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-5 py-2 rounded-full text-primary text-sm font-semibold mb-6 border border-primary/20 animate-pulse-soft">
+          <span>⏱️</span>
+          <span>Countdown</span>
         </div>
-        <div className="text-center">
-          <h3 className="font-display text-lg font-semibold text-foreground">Tour Countdown</h3>
-          <p className="text-sm text-muted-foreground">March 3, 2026</p>
-        </div>
+        
+        {/* Heading */}
+        <h2 className="font-display text-3xl md:text-5xl font-black text-foreground mb-4">
+          Time Until the Educational Tour
+        </h2>
+        
+        {/* Description */}
+        <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+          The countdown to an unforgettable experience in Manila. Every moment brings us closer to the adventure.
+        </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-3 md:gap-4">
-        {timeUnits.map((unit) => (
-          <div
-            key={unit.label}
-            className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-3 md:p-4 text-center border border-primary/20"
-          >
-            <div className="text-2xl md:text-4xl font-bold text-primary tabular-nums">
-              {String(unit.value).padStart(2, "0")}
+      {/* Countdown Grid */}
+      <div className="flex justify-center items-center gap-3 md:gap-6 lg:gap-10">
+        {timeUnits.map((unit, index) => {
+          const digits = String(unit.value).padStart(2, "0").split("");
+          const isSeconds = unit.label === "SECONDS";
+          
+          return (
+            <div key={unit.label} className="flex flex-col items-center gap-3">
+              <div className="flex gap-1.5 md:gap-2">
+                <DigitBox digit={digits[0]} isSeconds={isSeconds} />
+                <DigitBox digit={digits[1]} isSeconds={isSeconds} />
+              </div>
+              <span className="text-xs md:text-sm font-bold text-muted-foreground tracking-widest">
+                {unit.label}
+              </span>
             </div>
-            <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">
-              {unit.label}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

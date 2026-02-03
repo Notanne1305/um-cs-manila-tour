@@ -38,7 +38,7 @@ const Leaderboard = () => {
     return null;
   };
   return (
-    <section id="leaderboard" className="space-y-6">
+    <section id="leaderboard" className="space-y-8 py-8">
       {/* Countdown Timer */}
       <CountdownTimer />
       
@@ -49,13 +49,13 @@ const Leaderboard = () => {
       <ProgressBar useRankedTotals />
 
       {/* Leaderboard list */}
-      <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medium border border-border/50">
-        <div className="text-center mb-6">
-          <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-3">
-            Recognition
+      <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-medium border border-border/50">
+        <div className="text-center mb-8">
+          <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4 animate-bounce-subtle">
+            ✨ Recognition
           </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-            Top Givers
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+            Top <span className="text-primary">Givers</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Honoring our most generous supporters who made this tour possible.
