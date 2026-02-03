@@ -95,8 +95,8 @@ const Itinerary = () => {
                 <div className={`flex-1 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
                   <div className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-shadow duration-300">
                     <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? '' : ''}`}>
-                      <div className="w-10 h-10 gradient-hero rounded-lg flex items-center justify-center">
-                        <item.icon className="w-5 h-5 text-primary-foreground" />
+                      <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-white" />
                       </div>
                       <div className={index % 2 === 0 ? '' : ''}>
                         <span className="block font-display text-lg text-foreground">{item.day}</span>
