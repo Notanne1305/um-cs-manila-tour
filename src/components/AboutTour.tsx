@@ -29,13 +29,13 @@ const highlights = [
 
 const AboutTour = () => {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section className="py-24 md:py-32 relative overflow-hidden md:overflow-visible">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse-soft" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
       
       <div className="container relative">
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-16 md:mb-20 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4 animate-bounce-subtle">
             About This Opportunity
           </span>
@@ -55,8 +55,8 @@ const AboutTour = () => {
           {highlights.map((item, index) => (
             <div 
               key={index}
-              className="group relative bg-card rounded-3xl p-8 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-3 hover:rotate-1 border border-border/50 overflow-hidden"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group relative bg-card rounded-3xl p-8 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-3 hover:rotate-1 border border-border/50 overflow-hidden animate-fade-in-up"
+              style={{ animationDelay: `${0.4 + index * 0.1}s` }}
             >
               {/* Hover gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
@@ -76,10 +76,21 @@ const AboutTour = () => {
                 {item.description}
               </p>
               
-              <div className="flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-2">
+              <button
+                onClick={() => {
+                  // Dispatch event to show message in Contact component
+                  window.dispatchEvent(new CustomEvent('showLearnMoreMessage'));
+                  // Scroll to contact section
+                  const contactElement = document.querySelector('#contact');
+                  if (contactElement) {
+                    contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                className="flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-2"
+              >
                 <span>Learn more</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+              </button>
             </div>
           ))}
         </div>

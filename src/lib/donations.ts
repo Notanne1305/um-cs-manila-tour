@@ -21,59 +21,45 @@ const defaultDonors: Donor[] = [
 
 export const getDonations = (): Donor[] => {
   if (typeof window === 'undefined') return [];
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const existingDonations: Donor[] = JSON.parse(stored);
-      const defaultIds = new Set(defaultDonors.map(d => d.id));
-      
-      // Ensure all amounts are numbers (handle JSON parsing issues)
-      const normalizeDonor = (donor: Donor): Donor => ({
-        ...donor,
-        amount: typeof donor.amount === 'number' ? donor.amount : parseFloat(String(donor.amount)) || 0,
-      });
-      
-      // Create a map of existing donations by id for quick lookup
-      const existingMap = new Map<string, Donor>(
-        existingDonations.map((d: Donor) => [d.id, normalizeDonor(d)])
-      );
-      
-      // Start with default donors, preserving any UI-updated amounts
-      const mergedDonors: Donor[] = defaultDonors.map(defaultDonor => {
-        const existing = existingMap.get(defaultDonor.id);
-        if (existing && existing.amount !== defaultDonor.amount) {
-          // Preserve UI-updated amount, but update other fields from defaults
-          return {
-            ...defaultDonor,
-            amount: existing.amount,
-          };
-        }
-        // Use default data
-        return defaultDonor;
-      });
-      
-      // Add any new donations that aren't in the default list
-      existingDonations.forEach(existing => {
-        if (!defaultIds.has(existing.id)) {
-          mergedDonors.push(normalizeDonor(existing));
-        }
-      });
-      
-      // Sort by amount descending
-      mergedDonors.sort((a, b) => b.amount - a.amount);
-      
-      // Save the merged list back to localStorage
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedDonors));
-      return mergedDonors;
+    if (!stored) {
+      // No donations saved yet
+      return [];
     }
-    // Initialize with default data (sorted by amount descending)
-    const sortedDefaults = [...defaultDonors].sort((a, b) => b.amount - a.amount);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(sortedDefaults));
-    return sortedDefaults;
+
+    const existingDonations: Donor[] = JSON.parse(stored);
+
+    const normalizeDonor = (donor: Donor): Donor => ({
+      ...donor,
+      amount: typeof donor.amount === 'number' ? donor.amount : parseFloat(String(donor.amount)) || 0,
+    });
+
+    let normalized = existingDonations.map(normalizeDonor);
+
+    // Remove any seeded default donors (they should not appear in a real donor list)
+    const defaultIds = new Set(defaultDonors.map(d => d.id));
+    const filtered = normalized.filter(d => !defaultIds.has(d.id));
+    if (filtered.length !== normalized.length) {
+      // Save the filtered list back to storage and notify listeners
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('donationsUpdated'));
+      }
+      normalized = filtered;
+    }
+
+    // Sort by amount descending; on ties use dateAdded (newer first)
+    normalized.sort((a, b) => {
+      if (b.amount !== a.amount) return b.amount - a.amount;
+      return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+    });
+
+    return normalized;
   } catch (error) {
     console.error('Error reading donations from localStorage:', error);
-    return defaultDonors;
+    return [];
   }
 };
 
@@ -135,29 +121,8 @@ export const updateDonation = (id: string, name: string, amount: number): void =
 };
 
 export const getRankedDonors = (): Array<Donor & { rank: number; iconType: 'trophy' | 'medal' | 'award' | null; rankClass: string; rankSize: number }> => {
-  // Start with the canonical default donors (use amounts from defaultDonors[])
+  // Use ONLY the 8 default donors from defaultDonors array
   const baseDonors: Donor[] = defaultDonors.map(d => ({ ...d }));
-  
-  // Append any non-default donations found in localStorage (preserve their amounts)
-  if (typeof window !== 'undefined') {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const existingDonations: Donor[] = JSON.parse(stored);
-        const defaultIds = new Set(defaultDonors.map(d => d.id));
-        existingDonations.forEach(d => {
-          if (!defaultIds.has(d.id)) {
-            baseDonors.push({
-              ...d,
-              amount: typeof d.amount === 'number' ? d.amount : parseFloat(String(d.amount)) || 0,
-            });
-          }
-        });
-      }
-    } catch (error) {
-      console.error('Error reading donations from localStorage in getRankedDonors:', error);
-    }
-  }
 
   // Sort by amount descending; on ties use dateAdded (newer first)
   const sortedDonations = [...baseDonors].sort((a, b) => {
@@ -195,7 +160,8 @@ export const getRankedDonors = (): Array<Donor & { rank: number; iconType: 'trop
 
 export const resetDonations = (): void => {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDonors));
+  // Reset to an empty donation list (no default donors will appear in the leaderboard)
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new Event('donationsUpdated'));
   }

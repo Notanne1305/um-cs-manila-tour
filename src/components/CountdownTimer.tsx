@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Clock2 } from "lucide-react";
 
 const TARGET_DATE = new Date("2026-03-03T00:00:00");
 
@@ -41,13 +42,13 @@ const CountdownTimer = () => {
   ];
 
   const DigitBox = ({ digit, isSeconds }: { digit: string; isSeconds?: boolean }) => (
-    <div className={`relative w-14 h-20 md:w-20 md:h-28 bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl shadow-lg flex items-center justify-center overflow-hidden group ${isSeconds ? 'animate-pulse-digit' : ''}`}>
+    <div className={`relative w-10 h-14 sm:w-14 sm:h-20 md:w-20 md:h-28 min-w-[40px] sm:min-w-[56px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl shadow-lg flex items-center justify-center overflow-hidden group ${isSeconds ? 'animate-pulse-digit' : ''}`}>
       {/* Shine effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent h-1/2" />
       {/* Center line */}
       <div className="absolute inset-x-0 top-1/2 h-px bg-black/30" />
       {/* Digit */}
-      <span className={`text-4xl md:text-6xl font-black text-white tabular-nums relative z-10 ${isSeconds ? 'text-primary' : ''}`}>
+      <span className={`text-2xl sm:text-4xl md:text-6xl font-black text-white tabular-nums relative z-10 ${isSeconds ? 'text-primary' : ''}`}>
         {digit}
       </span>
       {/* Bottom reflection */}
@@ -56,11 +57,11 @@ const CountdownTimer = () => {
   );
 
   return (
-    <div className="py-16 md:py-24">
+    <div className="py-16 md:py-24 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
       <div className="text-center mb-10 md:mb-14">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm px-5 py-2 rounded-full text-primary text-sm font-semibold mb-6 border border-primary/20 animate-pulse-soft">
-          <span>⏱️</span>
+          <Clock2 className ="w-5 h-5" />
           <span>Countdown</span>
         </div>
         
@@ -76,13 +77,13 @@ const CountdownTimer = () => {
       </div>
 
       {/* Countdown Grid */}
-      <div className="flex justify-center items-center gap-3 md:gap-6 lg:gap-10">
+      <div className="flex flex-wrap justify-center items-center gap-3 md:gap-6 lg:gap-10" role="timer" aria-live="polite" aria-atomic="true">
         {timeUnits.map((unit, index) => {
           const digits = String(unit.value).padStart(2, "0").split("");
           const isSeconds = unit.label === "SECONDS";
           
           return (
-            <div key={unit.label} className="flex flex-col items-center gap-3">
+            <div key={unit.label} className="flex flex-col items-center gap-2 sm:gap-3 min-w-[64px] sm:min-w-[96px]">
               <div className="flex gap-1.5 md:gap-2">
                 <DigitBox digit={digits[0]} isSeconds={isSeconds} />
                 <DigitBox digit={digits[1]} isSeconds={isSeconds} />

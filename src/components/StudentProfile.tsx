@@ -11,7 +11,7 @@ const StudentProfile = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[1fr,1.5fr] gap-8 items-center">
             {/* Profile Card */}
-            <div className="relative">
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <div className="bg-card rounded-3xl shadow-medium overflow-hidden border border-border/50">
                 <div className="bg-gradient-to-br from-primary via-primary to-primary/80 p-8 text-center relative overflow-hidden">
                   {/* Decorative elements */}
@@ -22,7 +22,7 @@ const StudentProfile = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-accent to-yellow-300 rounded-full animate-pulse-soft" />
                     <div className="absolute inset-1 rounded-full overflow-hidden">
                       <img 
-                        src="/profile.jpg"
+                        src="/profile_najud.jpg"
                         alt="Jonathan Gonzales Sindo" 
                         className="w-full h-full object-cover"
                       />
@@ -63,7 +63,7 @@ const StudentProfile = () => {
             </div>
             
             {/* Story Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <div>
                 <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4">
                   My Story
@@ -91,8 +91,8 @@ const StudentProfile = () => {
               
               <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6 border border-primary/20">
                 <p className="text-foreground font-medium italic">
-                  "Your support means the world to me and will help shape my future in the IT industry. 
-                  Thank you for believing in my dreams."
+                  Your support means the world to me and will help shape my future in the Computer Science Field. 
+                  Thank you for believing in my dreams.
                 </p>
               </div>
             </div>

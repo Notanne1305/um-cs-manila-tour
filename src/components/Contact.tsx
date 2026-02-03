@@ -1,4 +1,6 @@
-import { Mail, Phone, MessageCircle, Send } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Mail, Phone, MessageCircle, Send, X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const contactMethods = [
   {
@@ -25,21 +27,58 @@ const contactMethods = [
 ];
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    const handleLearnMoreMessage = () => {
+      setShowMessage(true);
+      // Show toast notification
+      toast({
+        title: "Learn More",
+        description: "Send a message or call to learn more about the educational tour.",
+        duration: 5000,
+      });
+    };
+
+    window.addEventListener('showLearnMoreMessage', handleLearnMoreMessage);
+
+    return () => {
+      window.removeEventListener('showLearnMoreMessage', handleLearnMoreMessage);
+    };
+  }, [toast]);
+
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
       
       <div className="container relative">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4">
+          {/* Message banner that appears when navigated from Learn More */}
+          {showMessage && (
+            <div className="mb-6 bg-primary/10 border border-primary/20 rounded-lg p-4 flex items-center justify-between animate-in slide-in-from-top-2 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <p className="text-primary font-medium">
+                Send a message or call to learn more
+              </p>
+              <button
+                onClick={() => setShowMessage(false)}
+                className="text-primary hover:text-primary/80 transition-colors"
+                aria-label="Close message"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+          
+          <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Get In Touch
           </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             Have <span className="text-primary">Questions?</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-12">
+          <p className="text-muted-foreground text-lg mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             I would be happy to provide more information about the educational tour 
             or answer any questions you may have.
           </p>
@@ -51,7 +90,8 @@ const Contact = () => {
                 href={method.href}
                 target={method.title === "Messenger" ? "_blank" : undefined}
                 rel={method.title === "Messenger" ? "noopener noreferrer" : undefined}
-                className="group bg-card rounded-3xl p-6 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-2 border border-border/50 relative overflow-hidden"
+                className="group bg-card rounded-3xl p-6 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-2 border border-border/50 relative overflow-hidden animate-fade-in-up"
+                style={{ animationDelay: `${0.5 + index * 0.1}s` }}
               >
                 {/* Hover gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${method.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />

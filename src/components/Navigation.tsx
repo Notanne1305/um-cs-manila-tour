@@ -53,7 +53,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group animate-fade-in"
+            style={{ animationDelay: '0.1s' }}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <div className="w-10 h-10 gradient-hero rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -66,15 +67,16 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, index) => (
               <a
                 key={link.name}
                 href={link.href + link.hash}
                 onClick={(e) => handleNavClick(e, link.hash)}
                 className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+                  "px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 animate-fade-in",
                   "hover:bg-muted text-muted-foreground hover:text-foreground"
                 )}
+                style={{ animationDelay: `${0.2 + index * 0.05}s` }}
               >
                 {link.name}
               </a>

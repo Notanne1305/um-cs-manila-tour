@@ -1,6 +1,6 @@
 "use client";
 
-import { Trophy, Award, Medal } from "lucide-react";
+import { Trophy, Award, Medal, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getRankedDonors } from "@/lib/donations";
 import ProgressBar from "./ProgressBar";
@@ -49,10 +49,11 @@ const Leaderboard = () => {
       <ProgressBar useRankedTotals />
 
       {/* Leaderboard list */}
-      <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-medium border border-border/50">
+      <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-medium border border-border/50 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
         <div className="text-center mb-8">
-          <span className="inline-block bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4 animate-bounce-subtle">
-            ✨ Recognition
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4 animate-bounce-subtle">
+            <Sparkles className="w-4 h-4 text-accent" aria-hidden="true" />
+            Recognition
           </span>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Top <span className="text-primary">Givers</span>

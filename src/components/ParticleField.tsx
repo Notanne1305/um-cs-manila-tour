@@ -11,11 +11,15 @@ const ParticleField = () => {
     if (!ctx) return;
 
     const setCanvasSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const vw = (window as any).visualViewport;
+      canvas.width = vw ? vw.width : window.innerWidth;
+      canvas.height = vw ? vw.height : window.innerHeight;
     };
     setCanvasSize();
     window.addEventListener("resize", setCanvasSize);
+    if ((window as any).visualViewport) {
+      (window as any).visualViewport.addEventListener("resize", setCanvasSize);
+    }
 
     const particles: { x: number; y: number; size: number; speedX: number; speedY: number; opacity: number }[] = [];
     const particleCount = 80;
@@ -54,6 +58,9 @@ const ParticleField = () => {
 
     return () => {
       window.removeEventListener("resize", setCanvasSize);
+      if ((window as any).visualViewport) {
+        (window as any).visualViewport.removeEventListener("resize", setCanvasSize);
+      }
     };
   }, []);
 

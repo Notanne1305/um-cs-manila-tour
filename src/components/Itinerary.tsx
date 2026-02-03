@@ -64,7 +64,7 @@ const Itinerary = () => {
   return (
     <section className="py-20 md:py-28">
       <div className="container">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-3">
             Tour Schedule
           </span>
@@ -84,12 +84,13 @@ const Itinerary = () => {
             {schedule.map((item, index) => (
               <div 
                 key={index}
-                className={`relative flex flex-col md:flex-row gap-6 md:gap-12 mb-12 last:mb-0 ${
+                className={`relative flex flex-col md:flex-row gap-6 md:gap-12 mb-12 last:mb-0 animate-fade-in-up ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
+                style={{ animationDelay: `${0.4 + index * 0.15}s` }}
               >
                 {/* Timeline Dot */}
-                <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full gradient-hero border-4 border-background shadow-soft z-10" />
+                <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full gradient-warm border-4 border-background shadow-soft z-10" />
                 
                 {/* Content Card */}
                 <div className={`flex-1 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>

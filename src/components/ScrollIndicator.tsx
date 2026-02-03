@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 
 const ScrollIndicator = () => {
   return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none">
       <span className="text-xs uppercase tracking-[0.2em] text-primary-foreground/60 font-medium">
         Scroll to Explore
       </span>
