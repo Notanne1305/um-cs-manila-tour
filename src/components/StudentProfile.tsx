@@ -9,7 +9,7 @@ const StudentProfile = () => {
             <div className="gradient-hero p-8 md:p-12 text-center">
               <div className="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto flex items-center justify-center mb-6 border-4 border-primary-foreground/30 overflow-hidden">
                 <img 
-                  src="/profile.jpg"
+                  src="/profile_najud.jpg"
                   alt="Jonathan Gonzales Sindo" 
                   className="w-full h-full object-cover"
                 />
