@@ -12,6 +12,14 @@ const DonateSection = () => {
 
   const methods = [
     {
+      key: "bdo",
+      title: "BDO Donation",
+      logo: "/BDO_Logo.svg", // place in /public
+      image: "/BDO_qr.jpg",
+      number: "........1960",
+      accountName: "Jonathan Sindo",
+    },
+    {
       key: "gcash",
       title: "GCash Donation",
       logo: "/Gcash_Logo.svg", // place in /public
@@ -24,7 +32,7 @@ const DonateSection = () => {
       title: "Maribank",
       logo: "/Maribank_Logo.svg", // place in /public
       image: "/maribank.jpg",
-      number: "18868694270",
+      number: "....4270",
       accountName: "JONATHAN SINDO",
     },
   ];
@@ -68,9 +76,13 @@ const DonateSection = () => {
                 className={`
                   p-6 text-center relative overflow-hidden
                   ${
-                    m.key === "gcash"
-                      ? "bg-gradient-to-br from-blue-500 to-blue-600"
-                      : "bg-gradient-to-br from-orange-500 to-orange-600"
+                    m.key === "bdo"
+                      ? "bg-gradient-to-br from-blue-700 to-blue-800"
+                      :m.key === "gcash"
+                      ? "bg-gradient-to-br from-sky-400 to-sky-500"
+                      :m.key === "maribank"
+                      ? "bg-gradient-to-br from-orange-400 to-orange-500"
+                      : ""
                   }
                 `}
               >
