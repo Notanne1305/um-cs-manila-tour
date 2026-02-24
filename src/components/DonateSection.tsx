@@ -11,14 +11,14 @@ const DonateSection = () => {
   };
 
   const methods = [
-    {
-      key: "bdo",
-      title: "BDO Donation",
-      logo: "/BDO_Logo.svg", // place in /public
-      image: "/BDO_qr.jpg",
-      number: "........1960",
-      accountName: "Jonathan Sindo",
-    },
+    // {
+    //   key: "bdo",
+    //   title: "BDO Donation",
+    //   logo: "/BDO_Logo.svg", // place in /public
+    //   image: "/BDO_qr.jpg",
+    //   number: "........1960",
+    //   accountName: "Jonathan Sindo",
+    // },
     {
       key: "gcash",
       title: "GCash Donation",
